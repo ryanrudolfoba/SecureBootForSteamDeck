@@ -6,7 +6,10 @@ This repository contains the instructions on how to generate the Platform Key (P
 By default, the Steam Deck does not contain the keys needed for SecureBoot. It is missing the PK, KEK and DB keys. Without these keys, the SecureBoot functionality cannot be enabled.
 
 ## Disclaimer
-Do this at your own risk!
+1. Do this at your own risk!
+2. If you lose the keys then you can't disable Secure Boot. Save the keys / USB flash drive in a safe place!
+3. GPU firmware is signed using MS certificate. What this means is that on Windows the APU drivers won't get enabled because of key mismatch. Workaround is to disable driver signing. On Linux this is not an issue. I've signed the Batocera EFI loader and kernel, and the GPU works in there (tested by playing a PS2 game)
+
 
 ## Requirements
 1. USB flash drive. This will contain the installer / Linux ISO.
@@ -139,7 +142,9 @@ THIS STEP IS VERY IMPORTANT!!! If you don't sign your EFI loader and kernel then
     What does this mean?
     
     BOOTIA32.EFI this is for Windows (32bit? I signed it anyway just to be sure)
+    
     BOOTX64.EFI this is for Windows
+    
     vmlinuz-5.14.10-300.fc35.x86_64 this is the Linux kernel I am using
     
 3. Sign the EFI and kernel using sbctl
@@ -188,6 +193,3 @@ THIS STEP IS VERY IMPORTANT!!! If you don't sign your EFI loader and kernel then
     ![image](https://user-images.githubusercontent.com/98122529/207460372-c70c1e9b-50ef-4f1f-9fa2-ef5da0bd7bf5.png)
 
 6. Reboot and Secure Boot will be disabled and back to factory defaults - no PK, KEK and db keys.
-    
-
-    
