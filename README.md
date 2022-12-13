@@ -28,7 +28,7 @@ Do this at your own risk!
 10. Use the DPAD / keyboard to select the flash drive where Linux is installed and press ENTER.
 
 ## Instructions - compiling sbctl (this instructions are for Fedora, it will be similar for other Linux distro)
-1. Open terminal and perform the following commands.
+1. Open terminal.
 
 2. Install needed dependencies for sbctl.
 
@@ -53,7 +53,7 @@ Do this at your own risk!
 
 
 ## Instructions - using sbctl to generate and enroll keys
-1. Open terminal and perform the following commands.
+1. Open terminal.
 
 2. Check the sbctl status. (Mine will show a little bit different as I have already installed sbctl and have generated keys)
 
@@ -106,7 +106,7 @@ Do this at your own risk!
     
 
 ## Instructions - use mokutil to query the keys
-1. Open terminal and perform the following commands.
+1. Open terminal.
 
 2. Query the PK, KEK and db to make sure it is installed and available
     
@@ -128,7 +128,7 @@ Do this at your own risk!
 ## Instructions - using sbctl to sign the EFI loader and kernel
 THIS STEP IS VERY IMPORTANT!!! If you don't sign your EFI loader and kernel then you won't be able to boot to Windows or Linux!!!
 
-1. Open terminal and perform the following commands.
+1. Open terminal.
 
 2. Query sbctl the status of EFI entries. This will show not signed (but for me I've already signed several EFI entries)
 
@@ -157,3 +157,37 @@ THIS STEP IS VERY IMPORTANT!!! If you don't sign your EFI loader and kernel then
 
 
 ## Instructions - revert changes and disable Secure Boot
+1. Open terminal.
+
+2. Install efitools
+
+    sudo dnf install efitools
+    
+    ![image](https://user-images.githubusercontent.com/98122529/207459225-088fa41c-927a-4292-89f4-4926ac7227d8.png)
+
+3. Delete the PK, KEK and db
+
+    sudo chattr -i /sys/firmware/efi/efivars/{PK,KEK,db}*
+    
+    sudo efi-updatevar -d 0 -k /usr/share/secureboot/keys/PK/PK.key PK
+    
+    sudo efi-updatevar -d 0 -k /usr/share/secureboot/keys/KEK/KEK.key KEK
+    
+    sudo efi-updatevar -d 0 -k /usr/share/secureboot/keys/db/db.key db (you might need to do this twice to clear the microsoft vendor keys)
+    
+    ![image](https://user-images.githubusercontent.com/98122529/207460049-8414edcd-297d-4745-abd5-440b66db28eb.png)
+
+4. Check the sbctl status. This is now back to the default settings.
+
+    sbctl status
+    
+    ![image](https://user-images.githubusercontent.com/98122529/207460220-461ec1a1-6d5b-4ef9-b10c-4b7484eb3083.png)
+
+5. Use mokutil to query the PK, KEK and DB make sure they don't exist.
+
+    ![image](https://user-images.githubusercontent.com/98122529/207460372-c70c1e9b-50ef-4f1f-9fa2-ef5da0bd7bf5.png)
+
+6. Reboot and Secure Boot will be disabled and back to factory defaults - no PK, KEK and db keys.
+    
+
+    
