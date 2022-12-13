@@ -8,7 +8,6 @@ By default, the Steam Deck does not contain the keys needed for SecureBoot. It i
 ## Disclaimer
 1. Do this at your own risk!
 2. If you lose the keys then you can't revert back to disable Secure Boot. Save the keys / USB flash drive in a safe place!
-3. GPU firmware is signed using MS certificate. What this means is that on Windows the APU drivers won't get enabled because of key mismatch. Workaround is to disable driver signing. On Linux this is not an issue. I've signed the Batocera EFI loader and kernel, and the GPU works in there (tested by playing a PS2 game)
 
 
 ## Requirements
@@ -197,5 +196,7 @@ THIS STEP IS VERY IMPORTANT!!! If you don't sign your EFI loader and kernel then
 
 ## Final Thoughts
 When Secure Boot is enabled it needs that EFI entries are signed. What this means is that unless you sign SteamOS / SteamOS recovery image or refind (if you dual boot) then those items won't boot. Same for Batocera and other Linux distros. Follow the instructions on how to sign the EFI entries.
+
+GPU firmware is signed using MS certificate. What this means is that on Windows the APU drivers won't get enabled because of key mismatch. Workaround is to disable driver signing. On Linux this is not an issue. I've signed the Batocera EFI loader and kernel, and the GPU works in there (tested by playing a PS2 game)
 
 In Windows 11 the Vanguard anti-cheat still complains about Secure Boot, even if it is active and enabled. Most probably Vanguard does thorough checking of the keys installed and complains when self generated keys are in use. Wild idea is to extract keys from a Windows laptop and use that on the Steam Deck. Please let me know if that is a viable idea?!?
