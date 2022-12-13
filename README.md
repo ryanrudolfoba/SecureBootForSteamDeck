@@ -105,7 +105,7 @@ By default, the Steam Deck does not contain the keys needed for SecureBoot. It i
     
     Secure Boot - this will still show DISABLED. Reboot for the changes to take effect.
     
-    Vendory keys - this now shows we are using microsoft keys.
+    Vendor keys - this now shows we are using microsoft keys.
     
 
 ## Instructions - use mokutil to query the keys
@@ -193,3 +193,9 @@ THIS STEP IS VERY IMPORTANT!!! If you don't sign your EFI loader and kernel then
     ![image](https://user-images.githubusercontent.com/98122529/207460372-c70c1e9b-50ef-4f1f-9fa2-ef5da0bd7bf5.png)
 
 6. Reboot and Secure Boot will be disabled and back to factory defaults - no PK, KEK and db keys.
+
+
+## Final Thoughts
+When Secure Boot is enabled it needs that EFI entries are signed. What this means is that unless you sign SteamOS / SteamOS recovery image or refind (if you dual boot) then those items won't boot. Same for Batocera and other Linux distros. Follow the instructions on how to sign the EFI entries.
+
+In Windows 11 the Vanguard anti-cheat still complains about Secure Boot, even if it is active and enabled. Most probably Vanguard does thorough checking of the keys installed and complains when self generated keys are in use. Wild idea is to extract keys from a Windows laptop and use that on the Steam Deck. Please let me know if that is a viable idea?!?
