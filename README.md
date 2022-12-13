@@ -7,7 +7,7 @@ By default, the Steam Deck does not contain the keys needed for SecureBoot. It i
 
 ## Disclaimer
 1. Do this at your own risk!
-2. If you lose the keys then you can't disable Secure Boot. Save the keys / USB flash drive in a safe place!
+2. If you lose the keys then you can't revert back to disable Secure Boot. Save the keys / USB flash drive in a safe place!
 3. GPU firmware is signed using MS certificate. What this means is that on Windows the APU drivers won't get enabled because of key mismatch. Workaround is to disable driver signing. On Linux this is not an issue. I've signed the Batocera EFI loader and kernel, and the GPU works in there (tested by playing a PS2 game)
 
 
