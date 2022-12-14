@@ -104,7 +104,7 @@ By default, the Steam Deck does not contain the keys needed for SecureBoot. It i
     
     Secure Boot - this will still show DISABLED. Reboot for the changes to take effect.
     
-    Vendor keys - this now shows we are using microsoft keys.
+    Vendor keys - this now shows we are using microsoft keys in the signature database (db).
     
 
 ## Instructions - use mokutil to query the keys
