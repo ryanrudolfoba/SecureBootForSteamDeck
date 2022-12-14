@@ -1,7 +1,7 @@
 # How to Enable Secure Boot For Steam Deck
 
 ## About
-This repository contains the instructions on how to generate the Platform Key (PK), Key Exchange Key (KEK) and Signature Database (DB) to enable the Secure Boot functionality in Steam Deck.
+This repository contains the instructions on how to generate and install the Platform Key (PK), Key Exchange Key (KEK) and Signature Database (DB) to enable the Secure Boot functionality in Steam Deck.
 
 By default, the Steam Deck does not contain the keys needed for SecureBoot. It is missing the PK, KEK and DB keys. Without these keys, the SecureBoot functionality cannot be enabled.
 
