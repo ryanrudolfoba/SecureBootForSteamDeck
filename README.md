@@ -84,7 +84,7 @@ By default, the Steam Deck does not contain the keys needed for SecureBoot. It i
     
     sudo chattr -i /sys/firmware/efi/efivars/{PK,KEK,db}*
     
-    sbctl enroll-keys -m
+    sudo sbctl enroll-keys -m (This adds the Microsoft Production PCA cert in the db, and the Microsoft UEFI CA cert in the db. It does not add the MS KEK CA cert)
 
     ![image](https://user-images.githubusercontent.com/98122529/207435875-c0df839c-7dcf-483c-beae-e43074b5b45a.png)
 
@@ -146,13 +146,13 @@ THIS STEP IS VERY IMPORTANT!!! If you don't sign your EFI loader and kernel then
     
     vmlinuz-5.14.10-300.fc35.x86_64 this is the Linux kernel I am using
     
-3. Sign the EFI and kernel using sbctl
+3. Sign the EFI and kernel using sbctl.
 
-    sudo sbctl sign -s /boot/efi/EFI/BOOT/BOOTX64.EFI
+    sudo sbctl sign -s /boot/efi/EFI/BOOT/BOOTX64.EFI (This is optional since the Microsoft Production PCA and Microsoft UEFI CA is already added in the db)
     
-    sudo sbctl sign -s /boot/efi/EFI/BOOT/BOOTIA32.EFI
+    sudo sbctl sign -s /boot/efi/EFI/BOOT/BOOTIA32.EFI (This is optional since the Microsoft Production PCA and Microsoft UEFI CA is already added in the db)
     
-    sudo sbctl sign -s /boot//vmlinuz-5.14.10-300.fc35.x86_64
+    sudo sbctl sign -s /boot//vmlinuz-5.14.10-300.fc35.x86_64 (This is optional since the Microsoft Production PCA and Microsoft UEFI CA is already added in the db)
     
     ![image](https://user-images.githubusercontent.com/98122529/207455939-7ad82816-02a4-4727-93ab-e9ce9ebe7fac.png)
 
@@ -199,4 +199,4 @@ When Secure Boot is enabled it needs that EFI entries are signed. What this mean
 
 GPU firmware is signed using MS certificate. What this means is that on Windows the APU drivers won't get enabled because of key mismatch. Workaround is to disable driver signing. On Linux this is not an issue. I've signed the Batocera EFI loader and kernel, and the GPU works in there (tested by playing a PS2 game)
 
-In Windows 11 the Vanguard anti-cheat still complains about Secure Boot, even if it is active and enabled. Most probably Vanguard does thorough checking of the keys installed and complains when self generated keys are in use. Wild idea is to extract keys from a Windows laptop and use that on the Steam Deck. Please let me know if that is a viable idea?!?
+In Windows 11 the Vanguard anti-cheat still complains about Secure Boot, even if it is active and enabled. Most probably Vanguard does thorough checking of the keys installed and complains when self generated keys etc etc are in use?!?
