@@ -5,6 +5,8 @@ This repository contains the instructions on how to generate and install the Pla
 
 By default, the Steam Deck does not contain the keys needed for SecureBoot. It is missing the PK, KEK and DB keys. Without these keys, the SecureBoot functionality cannot be enabled.
 
+I've also posted this on the Valve Steam Deck Community Forum under Feature Requests. View the discussion [here.](https://steamcommunity.com/app/1675200/discussions/2/3728448512600476267/)
+
 ## Disclaimer
 1. Do this at your own risk!
 2. If you lose the keys then you can't revert back to disable Secure Boot. Save the keys / USB flash drive in a safe place!
@@ -21,12 +23,12 @@ By default, the Steam Deck does not contain the keys needed for SecureBoot. It i
 1. Download your favorite Linux distro and save it to your desktop / laptop. (I used Fedora on my environment)
 2. Use ventoy or rufus to burn the ISO to a USB flash drive. (I already have a microsd that is formatted for ventoy, so I just copy / paste the Fedora Linux ISO)
 3. Connect everything to the USB C hub / dock - Steam Deck, keyboard, mouse, flash drive that contains the Linux ISO, flash drive that will be the target for the Linux install
-4. While the Steam Deck is powered off, press VOL+ and POWER button at the same time to access the boot device menu.
+4. While the Steam Deck is powered off, press VOLDOWN and POWER button at the same time to access the boot device menu.
 5. Use the DPAD / keyboard to select the flash drive that contains the Linux ISO and press ENTER.
 6. Wait for the Linux ISO to load and then install Linux to the target flash drive.
 7. Shutdown the Steam Deck once Linux is installed to the other flash drive.
 8. Disconnect the flash drive that contains the Linux ISO as we dont need this anymore.
-9. While the Steam Deck is powered off, press VOL+ and POWER button at the same time to access the boot device menu.
+9. While the Steam Deck is powered off, press VOLDOWN and POWER button at the same time to access the boot device menu.
 10. Use the DPAD / keyboard to select the flash drive where Linux is installed and press ENTER.
 
 ## Instructions - compiling sbctl (this instructions are for Fedora, it will be similar for other Linux distro)
@@ -73,14 +75,14 @@ By default, the Steam Deck does not contain the keys needed for SecureBoot. It i
     
     Secure Boot - default is Disabled. Disabled means there are no keys active and Secure Boot is set to disabled state. 
 
-3. Generate keys
+3. Generate the PK, KEK and db keys.
 
     sbctl create-keys
 
     ![image](https://user-images.githubusercontent.com/98122529/207436579-4970f8ee-2e6b-4112-aa40-3e5147417462.png)
 
 
-4. Enroll the keys
+4. Enroll the generated keys.
     
     sudo chattr -i /sys/firmware/efi/efivars/{PK,KEK,db}*
     
@@ -88,7 +90,7 @@ By default, the Steam Deck does not contain the keys needed for SecureBoot. It i
 
     ![image](https://user-images.githubusercontent.com/98122529/207435875-c0df839c-7dcf-483c-beae-e43074b5b45a.png)
 
-5. Check again the sbctl status. This will now show a different status
+5. Check again the sbctl status. This will now show that Setup Mode is disabled because the keys are already present.
 
     sbctl status
 
@@ -110,7 +112,7 @@ By default, the Steam Deck does not contain the keys needed for SecureBoot. It i
 ## Instructions - use mokutil to query the keys
 1. Open terminal.
 
-2. Query the PK, KEK and db to make sure it is installed and available
+2. Query the PK, KEK and db to make sure it is installed and available.
     
     mokutil --pk
     
@@ -132,7 +134,7 @@ THIS STEP IS VERY IMPORTANT!!! If you don't sign your EFI loader and kernel then
 
 1. Open terminal.
 
-2. Query sbctl the status of EFI entries. This will show not signed (but for me I've already signed several EFI entries)
+2. Query sbctl the status of EFI entries. This will show not signed. (but for me I've already signed several EFI entries)
 
     sudo sbctl verify
     
@@ -163,13 +165,13 @@ THIS STEP IS VERY IMPORTANT!!! If you don't sign your EFI loader and kernel then
 ## Instructions - revert changes and disable Secure Boot
 1. Open terminal.
 
-2. Install efitools
+2. Install efitools.
 
     sudo dnf install efitools
     
     ![image](https://user-images.githubusercontent.com/98122529/207459225-088fa41c-927a-4292-89f4-4926ac7227d8.png)
 
-3. Delete the PK, KEK and db
+3. Delete the PK, KEK and db.
 
     sudo chattr -i /sys/firmware/efi/efivars/{PK,KEK,db}*
     
@@ -197,6 +199,6 @@ THIS STEP IS VERY IMPORTANT!!! If you don't sign your EFI loader and kernel then
 ## Final Thoughts
 When Secure Boot is enabled it needs that EFI entries are signed. What this means is that unless you sign SteamOS / SteamOS recovery image or refind (if you dual boot) then those items won't boot. Same for Batocera and other Linux distros. Follow the instructions on how to sign the EFI entries.
 
-GPU firmware is signed using MS certificate. What this means is that on Windows the APU drivers won't get enabled because of key mismatch. Workaround is to disable driver signing. On Linux this is not an issue. I've signed the Batocera EFI loader and kernel, and the GPU works in there (tested by playing a PS2 game)
+GPU firmware is signed using MS certificate. Even after using the public MS KEK and db keys I am still getting a key mismatch in Device Manager and the AMD APU drivers won't activate. Workaround is to disable driver signing. On Linux this is not an issue. I've signed the Batocera EFI loader and kernel, and the GPU works in there (tested by playing a PS2 game)
 
 In Windows 11 the Vanguard anti-cheat still complains about Secure Boot, even if it is active and enabled. Most probably Vanguard does thorough checking of the keys installed and complains when self generated keys etc etc are in use?!?
