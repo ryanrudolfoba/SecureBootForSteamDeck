@@ -23,7 +23,8 @@ I've also posted this on the Valve Steam Deck Community Forum under Feature Requ
 
 ## Disclaimer
 1. Do this at your own risk!
-2. If you lose the keys then you can't revert back to disable Secure Boot. Save the keys / USB flash drive in a safe place!
+2. Don't use Linux Live USB mode! Make sure you fully install a Linux distro not the Live USB mode!
+3. If you lose the keys then you can't revert back to disable Secure Boot. Save the keys / USB flash drive in a safe place!
 
 
 ## Requirements
