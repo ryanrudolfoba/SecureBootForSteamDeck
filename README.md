@@ -25,7 +25,8 @@ I've also posted this on the Valve Steam Deck Community Forum under Feature Requ
 1. Do this at your own risk!
 2. Don't use Linux Live USB mode! Make sure you fully install a Linux distro not the Live USB mode!
 3. If you lose the keys then you can't revert back to disable Secure Boot. Save the keys / USB flash drive in a safe place!
-
+4. If you lose the keys the fallback is to reflash the BIOS. Reflashing the BIOS removes the custom secure boot keys.
+5. But still don't lose the keys in case the BIOS reflash method gets invalidated.
 
 ## Requirements
 1. USB flash drive. This will contain the installer / Linux ISO.
